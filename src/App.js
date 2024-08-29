@@ -1,11 +1,5 @@
 import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  Typography,
-  Container,
-  Tooltip,
-} from "@mui/material";
+import { Typography, Tooltip } from "@mui/material";
 import "./App.css";
 
 function App() {
@@ -25,7 +19,7 @@ function App() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div class="App">
       <Typography variant="h4">Full Name Display</Typography>
       <form onSubmit={handleSubmit}>
         <div>
@@ -71,7 +65,7 @@ function App() {
             {error}
           </Typography>
         )}
-        <button type="submit" variant="contained" color="primary" >
+        <button type="submit" variant="contained" color="primary">
           Submit
         </button>
       </form>
@@ -84,7 +78,7 @@ function App() {
           Full Name: {submittedName}
         </Typography>
       )}
-    </Container>
+    </div>
   );
 }
 
