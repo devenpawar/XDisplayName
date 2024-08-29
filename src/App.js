@@ -31,6 +31,7 @@ function App() {
           >
             <input
               label="First Name"
+              type="text"
               variant="outlined"
               fullWidth
               margin="normal"
@@ -50,6 +51,7 @@ function App() {
           >
             <input
               label="Last Name"
+              type="text"
               variant="outlined"
               margin="normal"
               value={lastName}
