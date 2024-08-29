@@ -1,48 +1,74 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { TextField, Button, Typography, Container, Tooltip } from '@mui/material';
 import './App.css';
 
 function App() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [submittedName, setSubmittedName] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevents the default form submission behavior
-    setSubmittedName(`${firstName} ${lastName}`);
+    e.preventDefault();
+    if (firstName.trim() === '' || lastName.trim() === '') {
+      setError('Please fill in both fields before submitting.');
+    } else {
+      setSubmittedName(`${firstName} ${lastName}`);
+      setError('');
+    }
   };
 
   return (
-    <div className="App">
-      <h1>Full Name Display</h1>
+    <Container maxWidth="sm">
+      <Typography variant="h4">
+        Full Name Display
+      </Typography>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>
-            First Name: 
-            <input 
-              type="text" 
-              placeholder="First Name" 
-              value={firstName} 
-              onChange={(e) => setFirstName(e.target.value)} 
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Last Name: 
-            <input 
-              type="text" 
-              placeholder="Last Name" 
-              value={lastName} 
-              onChange={(e) => setLastName(e.target.value)} 
-            />
-          </label>
-        </div>
-        <button type="submit">Submit</button>
+        <Tooltip
+          title={firstName.trim() === '' ? 'Fill out this field' : ''}
+          placement="right"
+          open={firstName.trim() === ''}
+        >
+          <TextField
+            label="First Name"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            error={firstName.trim() === ''}
+          />
+        </Tooltip>
+        <Tooltip
+          title={lastName.trim() === '' ? 'Fill out this field' : ''}
+          placement="right"
+          open={lastName.trim() === ''}
+        >
+          <TextField
+            label="Last Name"
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            error={lastName.trim() === ''}
+          />
+        </Tooltip>
+        {error && (
+          <Typography variant="body2" color="error" gutterBottom>
+            {error}
+          </Typography>
+        )}
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Submit
+        </Button>
       </form>
       {submittedName && (
-        <h2>{submittedName}</h2>
+        <Typography variant="h5" color="textPrimary" style={{ marginTop: '20px' }}>
+          Full Name: {submittedName}
+        </Typography>
       )}
-    </div>
+    </Container>
   );
 }
 
